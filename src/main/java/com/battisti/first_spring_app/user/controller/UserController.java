@@ -15,13 +15,20 @@ public class UserController
     {
         if (!body.username.isEmpty() && !body.password.isEmpty())
         {
-            User userToAdd = new User();
-            userToAdd.username = body.username;
-            userToAdd.password = body.password;
-            userToAdd.active = true;
+            try
+            {
+                User userToAdd = new User();
+                userToAdd.username = body.username;
+                userToAdd.password = body.password;
+                userToAdd.active = true;
 
-            UserService.saveUser(userToAdd);
-            return ResponseEntity.ok(userToAdd);
+                UserService.saveUser(userToAdd);
+                return ResponseEntity.ok(userToAdd);
+            }
+            catch (Exception exception)
+            {
+                return ResponseEntity.badRequest().build();
+            }
         }
         else
         {
